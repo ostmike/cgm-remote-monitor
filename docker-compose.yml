@@ -1,0 +1,19 @@
+version: "3"
+services:
+  nightscout:
+    image: sk3tch/nightscout:latest
+    ports:
+      - "1337:1337"
+    depends_on:
+      - mongo
+    env_file:
+      - my.env.template
+
+  mongo:
+    image: mongo:4.2.0-bionic
+    ports:
+      - "27017-27019:27017-27019"
+    env_file:
+      - my.env.template
+    volumes:
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
